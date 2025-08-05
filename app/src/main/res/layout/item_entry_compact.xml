@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_entry_compact.xml - Compact entry item using ConstraintLayout -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvReferenceCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="IPR/TC/HFE/100MW/KA/SJPR/2501/01"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1976D2"
+            android:fontFamily="monospace"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvCreatedAt"
+            tools:text="IPR/TC/HFE/100MW/KA/SJPR/2501/01" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/01/2025"
+            android:textSize="12sp"
+            android:textColor="#666"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/tvReferenceCode"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="12/01/2025" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvParticulars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="TC"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/badge_secondary"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvReferenceCode"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="TC" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="HFE"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/badge_primary"
+            android:padding="4dp"
+            app:layout_constraintTop_toTopOf="@id/tvParticulars"
+            app:layout_constraintStart_toEndOf="@id/tvParticulars"
+            tools:text="HFE" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCapacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="100 MW"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/badge_success"
+            android:padding="4dp"
+            app:layout_constraintTop_toTopOf="@id/tvParticulars"
+            app:layout_constraintStart_toEndOf="@id/tvClient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="100 MW" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,35 @@
+/ res/menu/bottom_navigation.xml
+    <?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/nav_entries"
+        android:icon="@drawable/ic_list"
+        android:title="Entries" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+</menu>
+
+    // res/drawable/badge_primary.xml
+    <?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<solid android:color="#1976D2" />
+<corners android:radius="4dp" />
+</shape>
+
+    // res/drawable/badge_secondary.xml
+    <?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<solid android:color="#757575" />
+<corners android:radius="4dp" />
+</shape>
+
