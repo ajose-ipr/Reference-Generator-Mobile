@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.ReferenceGenerator" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.ReferenceGenerator" parent="Theme.MaterialComponents.DayNight.NoActionBar" >
+    <!-- Ensure ActionBar is enabled -->
+    <item name="windowActionBar">true</item>
+    <item name="windowNoTitle">false</item>
+
+        <!-- Simple color change -->
+        <item name="colorPrimary">#4CAF50</item> <!-- Green ActionBar -->
+        <item name="colorOnPrimary">@android:color/white</item>
+    </style>
 </resources>

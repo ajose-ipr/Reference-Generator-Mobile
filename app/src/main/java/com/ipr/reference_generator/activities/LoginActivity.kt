@@ -1,5 +1,5 @@
-//activities/LoginActivity.kt
 package com.ipr.reference_generator.activities
+//activities/LoginActivity.kt
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,16 +13,16 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.ipr.reference_generator.MainActivity
 import com.ipr.reference_generator.R
-import com.ipr.reference_generator.network.Repository
+import com.ipr.reference_generator.network.FirebaseRepository
 import com.ipr.reference_generator.utils.AppUtils
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var repository: Repository
-    private lateinit var etUsername: TextInputEditText
+    private lateinit var repository: FirebaseRepository
+    private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
-    private lateinit var tilUsername: TextInputLayout
+    private lateinit var tilEmail: TextInputLayout
     private lateinit var tilPassword: TextInputLayout
     private lateinit var btnLogin: MaterialButton
     private lateinit var btnRegister: MaterialButton
@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        repository = Repository.getInstance(this)
+        repository = FirebaseRepository.getInstance(this)
 
         initViews()
         setupClickListeners()
@@ -40,9 +40,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        etUsername = findViewById(R.id.etUsername)
+        etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
-        tilUsername = findViewById(R.id.tilUsername)
+        tilEmail = findViewById(R.id.tilEmail)
         tilPassword = findViewById(R.id.tilPassword)
         btnLogin = findViewById(R.id.btnLogin)
         btnRegister = findViewById(R.id.btnRegister)
@@ -63,28 +63,41 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        repository.authError.observe(this) { error ->
+            error?.let {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun validateAndLogin() {
-        val username = etUsername.text.toString().trim()
+        val emailOrUsername = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
 
-        tilUsername.error = AppUtils.validateInput(username, "username")
-        tilPassword.error = AppUtils.validateInput(password, "password")
+        // Update validation
+        if (emailOrUsername.isEmpty()) {
+            tilEmail.error = "Email or username is required"
+            return
+        }
 
-        if (tilUsername.error != null || tilPassword.error != null) return
+        val passwordError = AppUtils.validateInput(password, "password")
+        if (passwordError != null) {
+            tilPassword.error = passwordError
+            return
+        }
 
         setLoading(true)
 
         lifecycleScope.launch {
-            repository.login(username, password)
-                .onSuccess {
+            repository.loginWithEmail(emailOrUsername, password) // Same method name, updated logic
+                .onSuccess { user ->
                     setLoading(false)
-                    Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Welcome back, ${user.username}!", Toast.LENGTH_SHORT).show()
                 }
-                .onFailure { exception: Throwable ->
+                .onFailure { error ->
                     setLoading(false)
-                    Toast.makeText(this@LoginActivity, exception.message ?: "Login failed", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_LONG).show()
                 }
         }
     }
@@ -93,5 +106,10 @@ class LoginActivity : AppCompatActivity() {
         progressBar.visibility = if (loading) View.VISIBLE else View.GONE
         btnLogin.isEnabled = !loading
         btnRegister.isEnabled = !loading
+        etEmail.isEnabled = !loading
+        etPassword.isEnabled = !loading
+
+        // Optional: Change button text when loading
+        btnLogin.text = if (loading) getString(R.string.loading) else getString(R.string.login)
     }
 }

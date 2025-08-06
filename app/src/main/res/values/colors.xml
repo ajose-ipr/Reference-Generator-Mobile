@@ -17,4 +17,19 @@
     <color name="background_light">#F5F5F5</color>
     <color name="card_background">#FFFFFF</color>
     <color name="divider">#E0E0E0</color>
+
+    <!-- Primary Colors -->
+    <color name="primary">#1976D2</color>
+    <color name="primary_variant">#1565C0</color>
+    <color name="secondary">#03DAC6</color>
+    <color name="secondary_variant">#018786</color>
+
+    <!-- Background Colors -->
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Chip Colors -->
+    <color name="chip_particulars">#1565C0</color> <!-- Blue (TC tag) -->
+    <color name="chip_client">#2E7D32</color>      <!-- Green (Client name like HFEX) -->
+    <color name="chip_capacity">#EF6C00</color>    <!-- Orange (Capacity like 100MW) -->
+
 </resources>

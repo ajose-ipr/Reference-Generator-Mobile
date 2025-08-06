@@ -1,47 +1,93 @@
 <resources>
-    <!-- Common -->
+    <!-- App Info -->
     <string name="app_name">Reference-Generator</string>
     <string name="title_text">Firebase Authentication</string>
-    <string name="capacity_format">%1$s MW</string>
+
+    <!-- Common Actions -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="create">Create</string>
+    <string name="update">Update</string>
+    <string name="ok">OK</string>
     <string name="loading">Loading...</string>
     <string name="error">Error</string>
     <string name="success">Success</string>
-    <string name="cancel">Cancel</string>
-    <string name="ok">OK</string>
+    <string name="search">Search</string>
+    <string name="view_details">View Details</string>
 
-    <!-- Bottom Navigation -->
+    <!-- Navigation -->
     <string name="home">Home</string>
     <string name="dashboard">Dashboard</string>
     <string name="entries">Entries</string>
     <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
 
     <!-- Authentication -->
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="create_account">Create Account</string>
-    <string name="auth_request_text">Please sign in or register</string>
-    <string name="email_id">Email</string>
-    <string name="request_email_text">Enter your email</string>
-    <string name="enter_password">Password</string>
-    <string name="password_field_text">Enter your password</string>
-    <string name="user_info">User Info</string>
     <string name="logout">Logout</string>
-    <string name="username_hint">Username</string>
-    <string name="password_hint">Password</string>
-    <string name="confirm_password_hint">Confirm Password</string>
-    <string name="create_account_text">Create Account</string>
-    <string name="request_sign_in_text">Already have an account? Sign In</string>
-    <string name="terms">By creating an account, you agree to our Terms of Service and Privacy Policy</string>
-    <string name="create_account_request">Create Account</string>
-    <string name="join_request">Join Reference Generator today</string>
-    <string name="username_descr">Enter your username here</string>
-    <string name="enter_username">Enter username</string>
-    <string name="login_text">Login</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="create_account">Create Account</string>
     <string name="new_user_register">New User? Register here</string>
-    <string name="add_entry">add entry\n</string>
+    <string name="request_sign_in_text">Already have an account? Sign In</string>
+    <string name="auth_request_text">Please sign in or register</string>
+    <string name="join_request">Join Reference Generator today</string>
+    <string name="terms">By creating an account, you agree to our Terms of Service and Privacy Policy</string>
 
+    <!-- Authentication Fields -->
+    <string name="email">Email</string>
+    <string name="email_hint">Enter your email</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="username">Username</string>
+    <string name="username_hint">Enter your username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_password_hint">Re-enter your password</string>
+    <string name="user_info">User Info</string>
 
+    <!-- Home Screen -->
+    <string name="welcome_user">Welcome!</string>
+    <string name="role_user">Role: User</string>
+    <string name="total_entries">Total Entries</string>
+    <string name="my_entries">My Entries</string>
+    <string name="this_month">This Month</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="create_new_entry">Create New Entry</string>
+    <string name="view_dashboard">View Dashboard</string>
+    <string name="admin_settings">Admin Settings</string>
+    <string name="recent_entries">Recent Entries</string>
+
+    <!-- Dashboard -->
+    <string name="total_capacity">Total Capacity</string>
+    <string name="average_capacity">Average Capacity</string>
+    <string name="by_particulars">By Particulars</string>
+    <string name="by_clients">By Clients</string>
+    <string name="capacity_format">%1$s MW</string>
+
+    <!-- Entries -->
+    <string name="add_entry">Add Entry</string>
+    <string name="no_entries_found">No entries found</string>
+    <string name="sort_by_date">Sort by Date</string>
+    <string name="sort_by_reference">Sort by Reference</string>
+
+    <!-- Entry Form -->
+    <string name="particulars">Particulars</string>
+    <string name="client_code">Client Code</string>
+    <string name="capacity_mw">Capacity (MW)</string>
+    <string name="state_name">State Name</string>
+    <string name="site_name">Site Name</string>
+
+    <!-- Settings -->
+    <string name="access_denied_admin">Access denied. Admin privileges required.</string>
+    <string name="add_new_option">Add New Option</string>
+    <string name="option_type">Option Type</string>
+    <string name="option_value">Option Value</string>
+    <string name="display_name">Display Name</string>
+    <string name="add_option">Add Option</string>
+    <string name="existing_options">Existing Options</string>
+    <string name="delete_option">Delete Option</string>
+    <string name="app_logo">reference generator logo</string>
+    <string name="initialize_data">Initialize Data</string>
 </resources>

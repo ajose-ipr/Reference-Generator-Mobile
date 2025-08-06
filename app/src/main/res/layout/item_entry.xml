@@ -1,68 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- res/layout/item_entry.xml -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/itemContainer"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    android:foreground="?attr/selectableItemBackground">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvReferenceCode"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="REF12345"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvParticulars"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Project Particulars"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvReferenceCode"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvReferenceCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IPR/TC/HFEX/100MW/KA/SJPR/2501/01"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="monospace"
+            tools:text="IPR/TC/HFEX/100MW/KA/SJPR/2501/01" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvClient"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Client Code"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvParticulars"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvCapacity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="100 MW"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvClient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipParticulars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TC"
+                android:layout_marginEnd="4dp"
+                app:chipBackgroundColor="@color/chip_particulars"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                tools:text="TC" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvCreatedAt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="2025-08-05"
-        android:textSize="12sp"
-        android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintTop_toBottomOf="@id/tvCapacity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipClient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HFEX"
+                android:layout_marginEnd="4dp"
+                app:chipBackgroundColor="@color/chip_client"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                tools:text="HFEX" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCapacity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100MW"
+                app:chipBackgroundColor="@color/chip_capacity"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                tools:text="100MW" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCreatedBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Created by: admin"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    tools:text="Created by: admin" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCreatedAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15/01/2025 14:30"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    tools:text="15/01/2025 14:30" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_chevron_right"
+                android:contentDescription="@string/view_details"
+                app:tint="@color/text_secondary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
