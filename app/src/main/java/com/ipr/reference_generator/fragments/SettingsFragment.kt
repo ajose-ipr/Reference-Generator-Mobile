@@ -26,6 +26,7 @@ class SettingsFragment : Fragment() {
     private lateinit var etOptionValue: TextInputEditText
     private lateinit var etOptionDisplayName: TextInputEditText
     private lateinit var btnAddOption: MaterialButton
+    private lateinit var btnFixData: MaterialButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
@@ -54,6 +55,7 @@ class SettingsFragment : Fragment() {
         etOptionValue = view.findViewById(R.id.etOptionValue)
         etOptionDisplayName = view.findViewById(R.id.etOptionDisplayName)
         btnAddOption = view.findViewById(R.id.btnAddOption)
+        btnFixData = view.findViewById(R.id.btnFixData)
     }
 
     private fun setupUI() {
@@ -66,6 +68,10 @@ class SettingsFragment : Fragment() {
 
         btnAddOption.setOnClickListener {
             addCustomOption()
+        }
+
+        btnFixData.setOnClickListener {
+            fixData()
         }
     }
 
@@ -99,5 +105,23 @@ class SettingsFragment : Fragment() {
     private fun loadDropdownOptions() {
         // Load and display existing dropdown options
         // Implementation would show a list of all dropdown options with edit/delete capabilities
+    }
+
+    private fun fixData() {
+        lifecycleScope.launch {
+            btnFixData.isEnabled = false
+            btnFixData.text = "Fixing..."
+            
+            repository.fixCreatedByFields()
+                .onSuccess { fixedCount ->
+                    Toast.makeText(requireContext(), "Fixed $fixedCount entries", Toast.LENGTH_LONG).show()
+                }
+                .onFailure { error ->
+                    Toast.makeText(requireContext(), "Failed to fix data: ${error.message}", Toast.LENGTH_LONG).show()
+                }
+            
+            btnFixData.isEnabled = true
+            btnFixData.text = "Fix Created By Fields"
+        }
     }
 }

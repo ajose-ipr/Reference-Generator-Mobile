@@ -198,6 +198,17 @@ class FirebaseRepository private constructor(private val context: Context) {
 
     // ========== Entry Management ==========
 
+    // Helper method to get username from UID
+    private suspend fun getUsernameFromUid(uid: String): String {
+        return try {
+            val userDoc = usersCollection.document(uid).get().await()
+            userDoc.getString("username") ?: uid
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to get username for UID: $uid", e)
+            uid
+        }
+    }
+
     suspend fun createEntry(request: EntryRequest): Result<Entry> {
         return try {
             val currentUser = getCurrentUser() ?: return Result.failure(Exception("User not logged in"))
@@ -331,7 +342,15 @@ class FirebaseRepository private constructor(private val context: Context) {
                     val entry = document.toObject<Entry>()
                     if (entry != null) {
                         // Ensure ID is set
-                        val entryWithId = entry.copy(id = document.id)
+                        var entryWithId = entry.copy(id = document.id)
+                        
+                        // Resolve username for createdBy field if it looks like a UID
+                        if (AppUtils.isFirebaseUid(entryWithId.createdBy)) {
+                            val username = getUsernameFromUid(entryWithId.createdBy)
+                            entryWithId = entryWithId.copy(createdBy = username)
+                            Log.d(TAG, "Resolved UID ${entry.createdBy} to username: $username")
+                        }
+                        
                         entries.add(entryWithId)
                         Log.d(TAG, "Successfully converted entry: ${entry.referenceCode}")
                     } else {
@@ -374,12 +393,65 @@ class FirebaseRepository private constructor(private val context: Context) {
                 .get()
                 .await()
 
-            val entries = snapshot.toObjects<Entry>()
-                .sortedByDescending { it.slNo }
+            val entries = mutableListOf<Entry>()
+            
+            for (document in snapshot.documents) {
+                try {
+                    val entry = document.toObject<Entry>()
+                    if (entry != null) {
+                        var entryWithId = entry.copy(id = document.id)
+                        
+                        // Resolve username for createdBy field if it looks like a UID
+                        if (AppUtils.isFirebaseUid(entryWithId.createdBy)) {
+                            val resolvedUsername = getUsernameFromUid(entryWithId.createdBy)
+                            entryWithId = entryWithId.copy(createdBy = resolvedUsername)
+                        }
+                        
+                        entries.add(entryWithId)
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error processing document ${document.id}", e)
+                }
+            }
 
-            Result.success(entries)
+            val sortedEntries = entries.sortedByDescending { it.slNo }
+            Result.success(sortedEntries)
         } catch (e: Exception) {
             Log.e(TAG, "Error getting user entries", e)
+            Result.failure(e)
+        }
+    }
+
+    // Method to fix existing entries by updating CREATED_BY from UID to username
+    suspend fun fixCreatedByFields(): Result<Int> {
+        return try {
+            val snapshot = entriesCollection
+                .whereEqualTo("isActive", true)
+                .get()
+                .await()
+
+            var fixedCount = 0
+            
+            for (document in snapshot.documents) {
+                try {
+                    val createdBy = document.getString("CREATED_BY")
+                    if (createdBy != null && AppUtils.isFirebaseUid(createdBy)) {
+                        val username = getUsernameFromUid(createdBy)
+                        if (username != createdBy) {
+                            entriesCollection.document(document.id).update("CREATED_BY", username).await()
+                            fixedCount++
+                            Log.d(TAG, "Fixed entry ${document.id}: UID $createdBy -> username $username")
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error fixing entry ${document.id}", e)
+                }
+            }
+            
+            Log.d(TAG, "Fixed $fixedCount entries")
+            Result.success(fixedCount)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fixing createdBy fields", e)
             Result.failure(e)
         }
     }

@@ -109,4 +109,9 @@ object AppUtils {
         return currentMonth == calendar.get(java.util.Calendar.MONTH) &&
                 currentYear == calendar.get(java.util.Calendar.YEAR)
     }
+
+    // Utility method to check if a string looks like a Firebase UID
+    fun isFirebaseUid(value: String): Boolean {
+        return value.length > 20 && value.matches(Regex("^[a-zA-Z0-9]{20,}$"))
+    }
 }
